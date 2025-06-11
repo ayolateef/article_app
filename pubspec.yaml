@@ -1,0 +1,23 @@
+name: article_app
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^6.1.2
+  http: ^1.4.0
+  flutter_screenutil: ^5.9.3
+  flutter_animate: ^4.5.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
