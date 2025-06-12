@@ -34,10 +34,7 @@ flutter pub get
 Add Internet Permission (Android)
 Edit android/app/src/main/AndroidManifest.xml:
 
-xml
-Copy
-Edit
-<uses-permission android:name="android.permission.INTERNET" />
+
 Run App
 bash
 Copy
