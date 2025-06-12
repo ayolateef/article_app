@@ -45,10 +45,10 @@ class PostProvider extends ChangeNotifier {
 
     try {
       comments = await apiService.fetchComments(postId);
-      print('Comments loaded in provider: ${comments.length}'); // Debug log
+      print('Comments loaded in provider: ${comments.length}');
     } catch (e) {
       error = 'Failed to load comments: $e';
-      print('Error in provider: $error'); // Debug log
+      print('Error in provider: $error');
     } finally {
       isLoading = false;
       notifyListeners();
