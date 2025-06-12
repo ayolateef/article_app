@@ -50,19 +50,4 @@ shared_preferences: Persist dark theme preference.
 
 Flutter's built-in material.dart: UI components.
 
-🔧 Architecture Overview
-graphql
-Copy
-Edit
-lib/
-├── core/
-│   ├── constants/         
-│   ├── models/            
-│   └── services/         
-├── features/
-│   └── articles/
-│       ├── providers/     
-│       ├── screens/       
-│       └── widgets/      
-├── routes.dart           
-└── main.dart             
+          
