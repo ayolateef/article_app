@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import '../../core/constants/app_colors.dart';
 import '../../routes.dart';
 import '../providers/post_provider.dart';
+import '../providers/theme_provider.dart';
 import '../widgets/post_cart.dart';
 
 
@@ -13,10 +12,10 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
   bool _isSearchVisible = false;
   final TextEditingController _searchController = TextEditingController();
 
@@ -32,11 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
         title: Text(
           'Articles',
           style: TextStyle(
-            color: Colors.white,
             fontSize: 20.sp,
             fontWeight: FontWeight.bold,
           ),
@@ -44,8 +41,13 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             icon: Icon(
+              context.watch<ThemeProvider>().isDarkMode ? Icons.light_mode : Icons.dark_mode,
+            ),
+            onPressed: () => context.read<ThemeProvider>().toggleTheme(),
+          ),
+          IconButton(
+            icon: Icon(
               _isSearchVisible ? Icons.close : Icons.search,
-              color: Colors.white,
             ),
             onPressed: () {
               setState(() {
@@ -59,7 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      backgroundColor: AppColors.white,
       body: Column(
         children: [
           AnimatedContainer(
@@ -77,21 +78,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   controller: _searchController,
                   decoration: InputDecoration(
                     hintText: 'Search by title...',
-                    hintStyle: TextStyle(
-                      fontSize: 14.sp,
-                      color: AppColors.accent,
-                    ),
+                    hintStyle: Theme.of(context).textTheme.bodyMedium,
                     prefixIcon: Icon(
                       Icons.search,
                       size: 20.sp,
-                      color: AppColors.accent,
                     ),
                     suffixIcon: _searchController.text.isNotEmpty
                         ? IconButton(
                       icon: Icon(
                         Icons.clear,
                         size: 20.sp,
-                        color: AppColors.accent,
                       ),
                       onPressed: () {
                         _searchController.clear();
@@ -104,9 +100,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderSide: BorderSide.none,
                     ),
                     filled: true,
-                    fillColor: Colors.white,
                   ),
-                  style: TextStyle(fontSize: 14.sp),
+                  style: Theme.of(context).textTheme.bodyMedium,
                   onChanged: postProvider.filterPosts,
                 ),
               ),
@@ -115,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Expanded(
             child: RefreshIndicator(
-              color: AppColors.primary,
+              color: Theme.of(context).colorScheme.primary,
               onRefresh: postProvider.fetchPosts,
               child: postProvider.isLoading
                   ? Center(
@@ -123,15 +118,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircularProgressIndicator(
-                      color: AppColors.primary,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     SizedBox(height: 8.h),
                     Text(
                       'Loading...',
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: AppColors.accent,
-                      ),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
                 ),
@@ -144,30 +136,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     Icon(
                       Icons.error_outline,
                       size: 40.sp,
-                      color: AppColors.error,
+                      color: Theme.of(context).colorScheme.error,
                     ),
                     SizedBox(height: 8.h),
                     Text(
                       'Error: ${postProvider.error}',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: AppColors.error,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.error,
                       ),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 16.h),
                     ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.r),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 24.w,
-                          vertical: 12.h,
-                        ),
-                      ),
                       onPressed: postProvider.fetchPosts,
                       child: Text(
                         'Retry',
@@ -177,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               )
-                  : postProvider.filteredPosts.isEmpty
+                  : postProvider.posts.isEmpty
                   ? Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -185,42 +165,42 @@ class _HomeScreenState extends State<HomeScreen> {
                     Icon(
                       Icons.sentiment_dissatisfied,
                       size: 40.sp,
-                      color: AppColors.accent,
                     ),
                     SizedBox(height: 8.h),
                     Text(
                       'No posts found',
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        color: AppColors.accent,
-                      ),
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
                   ],
                 ),
               )
                   : ListView.builder(
                 padding: EdgeInsets.symmetric(vertical: 8.h),
-                itemCount: postProvider.filteredPosts.length,
+                itemCount: postProvider.posts.length,
                 itemBuilder: (context, index) {
-                  final post = postProvider.filteredPosts[index];
-                  return PostCard(
-                    post: post,
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        Routes.detail,
-                        arguments: post,
-                      );
-                    },
-                  ).animate()
-                      .fadeIn(
-                    delay: Duration(milliseconds: 100 * index),
-                    duration: const Duration(milliseconds: 300),
-                  )
-                      .slideY(
-                    begin: 0.2,
-                    end: 0,
-                    duration: const Duration(milliseconds: 300),
+                  final post = postProvider.posts[index];
+                  return Animate(
+                    effects: [
+                      FadeEffect(
+                        delay: Duration(milliseconds: 100 * index),
+                        duration: const Duration(milliseconds: 300),
+                      ),
+                      const SlideEffect(
+                        begin: Offset(0, 0.2),
+                        end: Offset.zero,
+                        duration: Duration(milliseconds: 300),
+                      ),
+                    ],
+                    child: PostCard(
+                      post: post,
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          Routes.detail,
+                          arguments: post,
+                        );
+                      },
+                    ),
                   );
                 },
               ),

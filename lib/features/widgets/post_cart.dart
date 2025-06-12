@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../core/constants/app_colors.dart';
+
 import '../../core/models/posts.dart';
 
 
@@ -13,6 +13,9 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -24,7 +27,7 @@ class PostCard extends StatelessWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: theme.cardTheme.color,
             borderRadius: BorderRadius.circular(12.r),
           ),
           padding: EdgeInsets.all(16.w),
@@ -36,10 +39,10 @@ class PostCard extends StatelessWidget {
                   children: [
                     Text(
                       post.title,
-                      style: TextStyle(
+                      style: theme.textTheme.bodyLarge?.copyWith(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
-                        color: Colors.black,
+                        color: theme.textTheme.bodyLarge?.color,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -47,9 +50,9 @@ class PostCard extends StatelessWidget {
                     SizedBox(height: 8.h),
                     Text(
                       post.snippet,
-                      style: TextStyle(
+                      style: theme.textTheme.bodyMedium?.copyWith(
                         fontSize: 14.sp,
-                        color: AppColors.accent,
+                        color: colorScheme.secondary,
                       ),
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
@@ -60,7 +63,7 @@ class PostCard extends StatelessWidget {
               Icon(
                 Icons.arrow_forward_ios,
                 size: 16.sp,
-                color: AppColors.accent,
+                color: colorScheme.secondary,
               ),
             ],
           ),

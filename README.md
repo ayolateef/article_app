@@ -1,44 +1,42 @@
-A Flutter mobile app that fetches and displays articles from a public API with detail view for comments. 
-Built using Provider for state management.
+A Flutter mobile app that fetches and displays articles from a public API with detailed views for comments. Built using Provider for state management.
 
-✅ Features
-Fetch posts from jsonplaceholder.typicode.com (fallback to dummyjson.com).
+🔄 Supports dark mode toggle using SharedPreferences.
 
-Search bar to filter articles by title.
+Features
+🔥 Fetch posts from jsonplaceholder.typicode.com (fallback to dummyjson.com).
 
-Pull-to-refresh support.
+🔍 Search bar to filter articles by title.
 
-Post details with comment view.
+⬇️ Pull-to-refresh support.
 
-Responsive UI using flutter_screenutil.
+🗨️ Post detail screen with comment view.
 
-Error handling and loading states.
+📱 Responsive UI using flutter_screenutil.
 
-🛠️ Setup Instructions
-Prerequisites
+🌓 Dark theme toggle with persistent setting via shared_preferences.
+
+⚠️ Error handling and loading states.
+
+Setup Instructions
+🔧 Prerequisites
 Flutter SDK (>=3.10.0)
 
 Dart SDK
 
 VS Code or Android Studio with Flutter plugin
 
-Emulator or physical Android device
+Emulator or Android device
 
-Steps
-bash
-Copy
-Edit
+🚀 Steps
 git clone https://github.com/ayolateef/article_app.git
 cd article_app
 flutter pub get
+
 Add Internet Permission (Android)
 Edit android/app/src/main/AndroidManifest.xml:
+<uses-permission android:name="android.permission.INTERNET"/>
 
-
-Run App
-bash
-Copy
-Edit
+Run the App
 flutter run
 
 📦 Dependencies
@@ -46,59 +44,25 @@ http: For API requests.
 
 provider: State management.
 
-flutter_screenutil: Responsive UI.
+flutter_screenutil: Responsive UI scaling.
 
-Flutter's material.dart: UI components.
+shared_preferences: Persist dark theme preference.
 
-🔧 Architecture
-Core: Constants, models, services.
+Flutter's built-in material.dart: UI components.
 
-Features: Article logic (providers, screens, widgets).
-
-State Management: PostProvider for managing posts/comments.
-
-Routing: Named routes (/home, /detail) via routes.dart.
-
-📁 Folder Structure
-css
+🔧 Architecture Overview
+graphql
 Copy
 Edit
 lib/
 ├── core/
-│   ├── constants/
-│   ├── models/
-│   └── services/
+│   ├── constants/         
+│   ├── models/            
+│   └── services/         
 ├── features/
 │   └── articles/
-│       ├── providers/
-│       ├── screens/
-│       └── widgets/
-├── routes.dart
-└── main.dart
-🧪 Troubleshooting
-403 Forbidden: Check API access in browser or switch network.
-
-No data: Confirm API access and check console logs.
-
-INTERNET Permission: Ensure it's added in AndroidManifest.xml.
-
-💡 Future Improvements
-Add local caching with shared_preferences.
-
-Add UI animations with flutter_animate.
-
-Write unit and widget tests.
-
-🚀 First Commit & Push
-Make sure you’ve initialized the Git repo and added the files:
-
-bash
-Copy
-Edit
-git init
-git remote add origin https://github.com/ayolateef/article_app.git
-git add .
-git commit -m "Initial commit: Article App with Provider and API integration"
-git branch -M main
-git push -u origin main
-Let me know if you'd like a README.md file generated or help pushing from a specific IDE like VS Code.
+│       ├── providers/     
+│       ├── screens/       
+│       └── widgets/      
+├── routes.dart           
+└── main.dart             

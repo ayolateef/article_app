@@ -13,5 +13,13 @@ class Post {
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'body': body,
+    };
+  }
+
   String get snippet => body.length > 50 ? '${body.substring(0, 50)}...' : body;
 }

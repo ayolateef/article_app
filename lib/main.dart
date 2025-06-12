@@ -1,4 +1,3 @@
-import 'package:article_app/core/constants/app_colors.dart';
 import 'package:article_app/core/constants/nav_key.dart';
 import 'package:article_app/core/services/app_init_services.dart';
 import 'package:article_app/features/providers/providers.dart';
@@ -6,6 +5,9 @@ import 'package:article_app/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+
+import 'core/constants/app_theme.dart';
+import 'features/providers/theme_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,20 +25,17 @@ class MyApp extends StatelessWidget {
       child: ScreenUtilInit(
         designSize: const Size(375, 812),
         builder: (context, child) {
-          return MaterialApp(
-            title: 'Article App',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-              scaffoldBackgroundColor: AppColors.white,
-              fontFamily: 'Inter',
-              useMaterial3: true,
+          return Consumer<ThemeProvider>(
+            builder: (context, themeProvider, _) => MaterialApp(
+              title: 'Article App',
+              debugShowCheckedModeBanner: false,
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+              navigatorKey: NavKey.appNavKey,
+              onGenerateRoute: Routes.onGenerateRoute,
+              initialRoute: Routes.home,
             ),
-            navigatorKey: NavKey.appNavKey,
-            onGenerateRoute: Routes.onGenerateRoute,
-            initialRoute: Routes.home,
           );
         },
       ),
