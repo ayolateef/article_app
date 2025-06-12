@@ -105,7 +105,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   return Center(
                     child: Padding(
                       padding: EdgeInsets.all(16.w),
-                      child: CircularProgressIndicator(
+                      child: const CircularProgressIndicator(
                         color: AppColors.primary,
                       ),
                     ),
@@ -182,7 +182,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   itemBuilder: (context, index) {
                     final comment = postProvider.comments[index];
                     return Card(
-                      elevation: 2,
+                      elevation: 0.5,
                       margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.r),
