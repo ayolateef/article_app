@@ -39,6 +39,12 @@ Edit android/app/src/main/AndroidManifest.xml:
 Run the App
 flutter run
 
+✅ Successfully Tested On
+📱 Android (emulator & real device)
+
+🍏 iOS (simulator)
+
+
 📦 Dependencies
 http: For API requests.
 
