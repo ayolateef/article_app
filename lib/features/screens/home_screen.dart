@@ -176,9 +176,10 @@ class HomeScreenState extends State<HomeScreen> {
               )
                   : ListView.builder(
                 padding: EdgeInsets.symmetric(vertical: 8.h),
-                itemCount: postProvider.posts.length,
+                itemCount: postProvider.filteredPosts.length,
                 itemBuilder: (context, index) {
-                  final post = postProvider.posts[index];
+                  final post = postProvider.filteredPosts[index];
+
                   return Animate(
                     effects: [
                       FadeEffect(
