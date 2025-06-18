@@ -157,7 +157,7 @@ class HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               )
-                  : postProvider.posts.isEmpty
+                  :  postProvider.filteredPosts.isEmpty
                   ? Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
